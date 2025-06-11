@@ -4,27 +4,49 @@ BitShop (Eckmar V3)
 Download and extract to /var/www/market
 
 sudo apt-add-repository ppa:ondrej/php
+
 sudo apt-get update
+
 sudo apt remove Apache2*
+
 sudo apt-get install nginx mysql-server unzip nodejs npm redis-server apt-transport-https openjdk-8-jre-headless curl tor php8.2-fpm php8.2-mysql php8.2-mbstring php8.2-xml php8.2-xmlrpc php8.2-gmp php8.2-curl php8.2-gd -y
+
 sudo ufw allow 'Nginx HTTP'
+
 #dont ask why we specifically download v1 to update to v2
+
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
+
 composer self-update 2.0.7
+
 mysql_secure_installation
+
 mysql -u root -p
+
 CREATE DATABASE marketplace DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 CREATE USER 'market'@'localhost' IDENTIFIED BY 'password';
+
 GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'market'@'localhost' WITH GRANT OPTION;
+
 exit
+
 sudo nano /etc/php/8.2/fpm/php.ini
-#"Uncomment the line cgi.fix_pathinfo=1 and set the value to cgi.fix_pathinfo=0"
+
+#"Uncomment the line cgi.fix_pathinfo=1 and set the value to cgi.fix_pathinfo=0
+
 sudo systemctl restart php8.2-fpm
+
 #ONLY CHOOSE 1 OR 2
+
 ========1========
+
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
 echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-6.x.list
+
 sudo apt-get update && sudo apt-get install elasticsearch
+
 ========2=========
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1-amd64.deb
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1-amd64.deb.sha512
