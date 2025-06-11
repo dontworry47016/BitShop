@@ -49,7 +49,6 @@ sudo apt-get update && sudo apt-get install elasticsearch
 
 ========2=========
 
-{
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1-amd64.deb
 
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1-amd64.deb.sha512
@@ -57,7 +56,6 @@ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.0.1-am
 shasum -a 512 -c elasticsearch-6.0.1-amd64.deb.sha512 
 
 sudo dpkg -i elasticsearch-6.0.1-amd64.deb
-}
 
 ========post==========
 
@@ -77,20 +75,29 @@ sudo nano /etc/redis/redis.conf
 
 sudo systemctl restart redis.service
 
-{
 sudo chown -R www-data:www-data /var/www/market/public
+
 sudo chmod 755 /var/www
+
 sudo chmod -R 755 /var/www/market/bootstrap/cache
+
 sudo chmod -R 755 /var/www/market/storage
+
 sudo chown -R $USER:www-data /var/www/market/storage
+
 sudo chown -R $USER:www-data /var/www/market/bootstrap/cache
+
 sudo chmod -R 775 /var/www/market/storage
+
 sudo chmod -R 775 /var/www/market/bootstrap/cache
+
 sudo chmod -R 755 /var/www/market/storage/public/products
+
 sudo chgrp -R www-data /var/www/market/storage/public/products
+
 sudo chmod -R ug+rwx /var/www/market/storage/public/products
+
 sudo nano /etc/nginx/sites-available/default
-}
 
 #replace entire file
 
@@ -120,13 +127,21 @@ server {
 }
 
 sudo nginx -t
+
 cd /var/www/market
+
 composer install
+
 npm install
+
 npm audit fix
+
 npm run prod
+
 cp .env.example .env
+
 php artisan key:generate
+
 sudo nano .env
 
 #adjust these values
